@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+option java_package = "dev.markdw.proto";
+option java_multiple_files = true;
+
+// Common english units
+enum EnglishMeasurement {
+  OUNCES = 0;
+  CUPS = 1;
+  PINTS = 2;
+  QUART = 3;
+  GALLON = 4;
+  TEASPOONS = 5;
+  TABLESPOONS = 6;
+  POUNDS = 7;
+}
+
+// Common metric units
+enum MetricMeasurement {
+  GRAMS = 0;
+  MILLIGRAMS = 1;
+  LITERS = 2;
+  MILLILITERS = 3;
+}
+
+message RecipeRequest {
+  int32 id = 1;
+}
+
+// A section of ingredients in a recipe (e.g. "for the soup", "for the <other part of recipe>")
+message RecipeIngredientSection {
+  string heading = 1;
+  repeated RecipeIngredient ingredients = 2;
+}
+
+// Information about a single ingredient in a recipe
+message RecipeIngredient {
+  string name = 1;
+  EnglishMeasurement english_measurement = 2;
+  MetricMeasurement metric_measurement = 3;
+  string note = 4;
+}
+
+// A section of the instructional portion in a recipe
+message RecipeStepSection {
+  string heading = 1;
+  repeated RecipeStep steps = 2;
+}
+
+// A step in the instruction portion in a recipe
+message RecipeStep {
+  string text = 1;
+}
+
+message Recipe {
+  string title = 1;
+  string description = 2;
+  repeated RecipeIngredientSection ingredient_sections = 3;
+  repeated RecipeStepSection step_sections = 4;
+}
+
+service RecipeService {
+  rpc GetRecipe(RecipeRequest) returns (Recipe) {};
+}
