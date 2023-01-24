@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  server:
+    build:
+      context: .
+      dockerfile: test.dockerfile
+  
+  database:
+    image: "mariadb:latest"
+    environment:
+      - MARIADB_DATABASE=munchy
+      - MARIADB_USER=test
+      - MARIADB_PASSWORD=test123
+      - MARIADB_ROOT_PASSWORD=test123
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d:ro
+
+    

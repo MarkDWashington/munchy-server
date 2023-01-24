@@ -54,7 +54,6 @@ message RecipeStep {
 
 message Recipe {
   string title = 1;
-  string description = 2;
   repeated RecipeIngredientSection ingredient_sections = 3;
   repeated RecipeStepSection step_sections = 4;
 }

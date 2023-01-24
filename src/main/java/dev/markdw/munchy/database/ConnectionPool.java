@@ -12,11 +12,17 @@ import dev.markdw.munchy.util.Environment;
 
 
 public class ConnectionPool {
-  private BlockingQueue<Connection> availableConnections;
-  private Set<Connection> usedConnections;
+  private Environment environment;
+
+  private BlockingQueue<Connection> availableConnections = null;
+  private Set<Connection> usedConnections = null;
 
   @Inject
   ConnectionPool(Environment environment) {
+    this.environment = environment;
+  }
+
+  private void initialize() {
     this.availableConnections = new LinkedBlockingQueue<>();
     this.usedConnections = new HashSet<>();
 
@@ -32,6 +38,10 @@ public class ConnectionPool {
   }
 
   Connection getConnection() throws InterruptedException {
+    if (this.availableConnections == null) {
+      initialize();
+    }
+    
     Connection connection = availableConnections.take();
     usedConnections.add(connection);
     return connection;

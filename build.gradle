@@ -44,9 +44,9 @@ tasks.named('test') {
 }
 
 run {
-  environment "DATABASE_URL", "db.markdw.dev"
-  environment "DATABASE_USERNAME", "username"
-  environment "DATABASE_PASSWORD", "password"
+  environment "DATABASE_URL", "localhost:3600"
+  environment "DATABASE_USERNAME", "test"
+  environment "DATABASE_PASSWORD", "test123"
 }
 
 protobuf {
