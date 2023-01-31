@@ -16,7 +16,8 @@ public class MunchyApp {
 
   void start() {
     try {
-      this.recipeServer.start();
+      
+      recipeServer.start();
     } catch (Exception e) {
       e.printStackTrace();
       System.exit(1);

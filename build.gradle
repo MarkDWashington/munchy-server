@@ -27,6 +27,7 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.44.2'
 
     implementation 'com.mysql:mysql-connector-j:8.0.31'
+    implementation 'com.zaxxer:HikariCP:5.0.1'
 
     // Test dependencies
     // Use JUnit Jupiter for testing.
