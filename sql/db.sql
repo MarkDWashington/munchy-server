@@ -29,6 +29,6 @@ CREATE TABLE IF NOT EXISTS RecipeStep (
   recipeStepSectionId INT NOT NULL,
   id INT NOT NULL,
   text TEXT NOT NULL,
-  PRIMARY KEY (recipeId, recipeStepSectionId),
+  PRIMARY KEY (recipeId, recipeStepSectionId, id),
   FOREIGN KEY (recipeId, recipeStepSectionId) REFERENCES RecipeStepSection(recipeId, id)
 );

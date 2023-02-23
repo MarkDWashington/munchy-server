@@ -32,6 +32,7 @@ dependencies {
     // Test dependencies
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
+    testImplementation 'org.mockito:mockito-core:3.+'
 }
 
 application {
@@ -45,7 +46,7 @@ tasks.named('test') {
 }
 
 run {
-  environment "DATABASE_URL", "localhost:3600"
+  environment "DATABASE_URL", "jdbc:mysql://localhost:3600"
   environment "DATABASE_USERNAME", "test"
   environment "DATABASE_PASSWORD", "test123"
 }

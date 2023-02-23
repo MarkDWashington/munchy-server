@@ -6,7 +6,7 @@ import dev.markdw.munchy.recipe.RecipeServer;
 import dev.markdw.munchy.util.Environment;
 
 public class MunchyApp {
-  
+
   private RecipeServer recipeServer;
 
   @Inject
@@ -16,20 +16,19 @@ public class MunchyApp {
 
   void start() {
     try {
-      
       recipeServer.start();
     } catch (Exception e) {
       e.printStackTrace();
       System.exit(1);
     }
-    
+
   }
-  
+
   public static void main(String[] args) throws IOException, InterruptedException {
     if (!Environment.verify()) {
       System.exit(1);
     }
-    
+
     MunchyAppFactory munchyAppFactory = DaggerMunchyAppFactory.create();
     MunchyApp munchyApp = munchyAppFactory.getMunchyApp();
 

@@ -10,7 +10,7 @@ import io.grpc.Server;
 
 public class RecipeServer {
   private static final int PORT = 50051;
-  
+
   private Server server;
   private RecipeService recipeService;
 
@@ -18,10 +18,10 @@ public class RecipeServer {
   RecipeServer(RecipeService recipeService) {
     this.recipeService = recipeService;
   }
- 
+
   public void start() throws IOException, InterruptedException {
     server = Grpc.newServerBuilderForPort(PORT, InsecureServerCredentials.create())
-        .addService(recipeService).build().start();    
+        .addService(recipeService).build().start();
 
     Runtime.getRuntime().addShutdownHook(new Thread(() -> {
       try {

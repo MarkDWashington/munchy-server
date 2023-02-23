@@ -7,9 +7,9 @@ import dagger.Provides;
 
 @Module
 public class HikariDataSourceModule {
-  @Singleton
   @Provides
-  static HikariDataSource provideHikariDataSource() {
-    HikariDataSource dataSource = new HikariDataSource();
+  @Singleton
+  HikariDataSource provideHikariDataSource() {
+    return new HikariDataSource();
   }
 }
