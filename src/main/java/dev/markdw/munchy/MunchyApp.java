@@ -21,7 +21,6 @@ public class MunchyApp {
       e.printStackTrace();
       System.exit(1);
     }
-
   }
 
   public static void main(String[] args) throws IOException, InterruptedException {

@@ -5,9 +5,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import com.zaxxer.hikari.HikariDataSource;
 
 public class RecipeDatabaseTest {
@@ -16,11 +19,20 @@ public class RecipeDatabaseTest {
   @Mock Statement mockStatement;
   @Mock ResultSet mockResultSet;
 
-  @Test
-  public void getRecipe_returnsRecipe() throws SQLException {
+  @BeforeEach
+  public void setup() throws SQLException {
+    MockitoAnnotations.openMocks(this);
+
     when(mockDataSource.getConnection()).thenReturn(mockConnection);
-    when(mockConnection.createStatement()).thenReturn(mockStatement);
-    when(mockStatement.executeQuery("SELECT * FROM Recipe WHERE id = 1")).thenReturn(mockResultSet);
-    when(mockResultSet.next());
+  }
+
+  @Test
+  public void getRecipe_OneRecipe_ReturnsRecipe() throws SQLException {
+    
+  }
+
+  @Test
+  public void getRecipe_NoRecipes_ThrowsRecipeNotFoundException() throws SQLException {
+    
   }
 }

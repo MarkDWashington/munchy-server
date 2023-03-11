@@ -58,11 +58,9 @@ message Recipe {
   repeated RecipeStepSection step_sections = 4;
 }
 
-message StatusResponse {
-  bool successful = 1;
-}
+message CreateRecipeResponse {}
 
 service RecipeService {
   rpc GetRecipe(RecipeRequest) returns (Recipe) {};
-  rpc CreateRecipe(Recipe) returns (StatusResponse) {};
+  rpc CreateRecipe(Recipe) returns (CreateRecipeResponse) {};
 }
