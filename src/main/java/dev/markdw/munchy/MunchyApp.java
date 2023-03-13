@@ -3,7 +3,7 @@ package dev.markdw.munchy;
 import java.io.IOException;
 import javax.inject.Inject;
 import dev.markdw.munchy.recipe.RecipeServer;
-import dev.markdw.munchy.util.Environment;
+import dev.markdw.munchy.util.EnvironmentModule;
 
 public class MunchyApp {
 
@@ -24,11 +24,17 @@ public class MunchyApp {
   }
 
   public static void main(String[] args) throws IOException, InterruptedException {
-    if (!Environment.verify()) {
+    if (args.length < 3) {
+      System.out.println("Usage: MunchyApp <DB_URL> <DB_USERNAME> <DB_PASSWORD>");
       System.exit(1);
     }
 
-    MunchyAppFactory munchyAppFactory = DaggerMunchyAppFactory.create();
+    String dbUrl = args[0];
+    String dbUsername = args[1];
+    String dbPassword = args[2];
+
+    MunchyAppFactory munchyAppFactory = DaggerMunchyAppFactory.builder()
+        .environmentModule(new EnvironmentModule(dbUrl, dbUsername, dbPassword)).build();
     MunchyApp munchyApp = munchyAppFactory.getMunchyApp();
 
     System.out.println("Starting RPC server");

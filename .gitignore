@@ -29,3 +29,6 @@ hs_err_pid*
 bin/
 build/
 target/
+
+# Ignore MacOS .DS_Store files
+.DS_STORE
