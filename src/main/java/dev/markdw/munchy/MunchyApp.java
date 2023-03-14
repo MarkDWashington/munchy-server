@@ -1,6 +1,7 @@
 package dev.markdw.munchy;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import javax.inject.Inject;
 import dev.markdw.munchy.recipe.RecipeServer;
 import dev.markdw.munchy.util.EnvironmentModule;
@@ -23,18 +24,12 @@ public class MunchyApp {
     }
   }
 
-  public static void main(String[] args) throws IOException, InterruptedException {
-    if (args.length < 3) {
-      System.out.println("Usage: MunchyApp <DB_URL> <DB_USERNAME> <DB_PASSWORD>");
+  public static void main(String[] args) throws IOException, IllegalAccessException, InterruptedException, InvocationTargetException {
+    if (!EnvironmentModule.verify()) {
       System.exit(1);
     }
-
-    String dbUrl = args[0];
-    String dbUsername = args[1];
-    String dbPassword = args[2];
-
-    MunchyAppFactory munchyAppFactory = DaggerMunchyAppFactory.builder()
-        .environmentModule(new EnvironmentModule(dbUrl, dbUsername, dbPassword)).build();
+    
+    MunchyAppFactory munchyAppFactory = DaggerMunchyAppFactory.create();
     MunchyApp munchyApp = munchyAppFactory.getMunchyApp();
 
     System.out.println("Starting RPC server");

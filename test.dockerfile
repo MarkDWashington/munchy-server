@@ -1,4 +1,4 @@
-FROM amazoncorretto:17
+FROM amazoncorretto:17 AS build
 
 WORKDIR /app
 
@@ -7,4 +7,10 @@ COPY gradlew ./
 COPY gradle/ gradle
 COPY src/ src
 
-CMD ["./gradlew", "run"]
+RUN ./gradlew shadowJar
+
+
+FROM amazoncorretto:19-alpine
+WORKDIR /app
+COPY --from=build /app/build/libs/munchy-server.jar ./
+CMD ["java", "-jar", "munchy-server.jar"]

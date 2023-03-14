@@ -9,6 +9,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.0'
     id 'com.google.protobuf' version '0.9.1'
 }
 
@@ -49,6 +50,13 @@ run {
   environment "DATABASE_URL", "jdbc:mysql://localhost:3600"
   environment "DATABASE_USERNAME", "test"
   environment "DATABASE_PASSWORD", "test123"
+}
+
+shadowJar {
+  manifest {
+    attributes "Main-Class": application.mainClass
+  }
+  archiveFileName = "munchy-server.jar"
 }
 
 protobuf {
