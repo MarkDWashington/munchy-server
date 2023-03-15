@@ -27,15 +27,23 @@ public class RecipeService extends RecipeServiceGrpc.RecipeServiceImplBase {
       responseObserver.onCompleted();
     } catch (RecipeNotFoundException e) {
       responseObserver.onError(Status.NOT_FOUND.withDescription("Recipe not found").asException());
-      Status.NOT_FOUND.asException();
     } catch (Exception e) {
       System.err.println("Something went wrong");
       e.printStackTrace(System.err);
+      responseObserver.onError(Status.UNKNOWN.withDescription("Recipe not found").asException());
     }
   }
 
   @Override
   public void createRecipe(Recipe recipe, StreamObserver<CreateRecipeResponse> responseObserver) {
-    
+    try {
+      recipeDatabase.addRecipe(recipe);
+      responseObserver.onNext(CreateRecipeResponse.getDefaultInstance());
+      responseObserver.onCompleted();
+    } catch (Exception e) {
+      System.err.println("Something went wrong");
+      e.printStackTrace(System.err);
+      responseObserver.onError(Status.UNKNOWN.withDescription("Something went wrong").asException());
+    }
   }
 }

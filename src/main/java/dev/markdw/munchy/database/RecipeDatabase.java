@@ -23,6 +23,8 @@ public class RecipeDatabase {
 
   @Inject
   RecipeDatabase(HikariDataSource hikariDataSource, @Named("DB_URL") String dbUrl, @Named("DB_USERNAME") String dbUsername, @Named("DB_PASSWORD") String dbPassword) {
+    // TODO: This section could be moved to the producer
+    hikariDataSource.setDriverClassName("org.mariadb.jdbc.Driver");
     hikariDataSource.setJdbcUrl(dbUrl);
     hikariDataSource.setUsername(dbUsername);
     hikariDataSource.setPassword(dbPassword);
@@ -34,7 +36,7 @@ public class RecipeDatabase {
       throws InvalidProtocolBufferException, RecipeNotFoundException, SQLException {
     Connection connection = hikariDataSource.getConnection();
     ResultSet resultSet = connection.createStatement()
-        .executeQuery(String.format("SELECT recipe FROM Recipe WHERE id = %d", recipeId));
+        .executeQuery(String.format("SELECT recipe FROM Recipes WHERE id = %d", recipeId));
 
     if (!resultSet.next()) {
       throw new RecipeNotFoundException();
@@ -45,7 +47,7 @@ public class RecipeDatabase {
 
   public void addRecipe(Recipe recipe) throws SQLException {
     Connection connection = hikariDataSource.getConnection();
-    PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Recipe (recipe) VALUES (?)");
+    PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Recipes (recipe) VALUES (?)");
     preparedStatement.setBytes(1, recipe.toByteArray());
     preparedStatement.executeUpdate();
   }
